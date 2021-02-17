@@ -1,42 +1,38 @@
 import sys
-import mylib
-import mysound
-import mysound.manage
-from mysound.formats import *
-from mysound.effects import *
-import mysound.effects.echo as ee
-import mysound.effects.echo
+
+import options
+import tools
+import sound
+import sound.manage
+from sound.formats import *
+from sound.effects import *
+print('Finished importing * from effects')
+import sound.effects.echo as ee
+import sound.effects.echo
 
 
-print(f'Now initialising {__name__}')
+print(f'Now initialising {__name__}: {options.NAME} ver {options.VERSION}')
 
 
 def main():
     print(f'\nPython search path for library modules: {sys.path}\n')
     
-    mainflag = True
-    print(f'dir in main function: {dir()}')
-    print(f'dir of mylib: {dir(mylib)}')
-    mylib.sayhello(__name__)
-    
-    print(f'\ndir of mysound: {dir(mysound)}')
-    print(f'dir of mysound.manage: {dir(mysound.manage)}')
-    mysound.manage.sayhello(__name__)
-    
-    print(f'\ndir of wav: {dir(wav)}')
-    wav.sayhello(__name__)
-    
-    print(f'\ndir of mp3: {dir(mp3)}')
+    tools.sayhello(__name__)
+    sound.manage.about()
+
     mp3.sayhello(__name__)
     
-    print(f'\ndir of ee: {dir(ee)}')
-    print(f'dir of mysound.effects.echo: {dir(mysound.effects.echo)}')
-    print(f'ee is echo: {ee is mysound.effects.echo}')
+    sound.manage.sayhello(__name__)
+    print(f'main now sees volume as {options.volume}')
+
+    wav.sayhello(__name__)
+    
+    print(f'ee is echo: {ee is sound.effects.echo}')
 
     ee.sayhello(__name__)
-    print(f'\nVolume is {ee.volume}')
-    ee.volume = 11
-    print(f'Volume is {mysound.effects.echo.volume}')
+    print(f'Decay is {ee.decay}')
+    ee.decay = 1
+    print(f'Decay is {sound.effects.echo.decay}')
 
     def goodbye(s):
         print(f'\nGoodbye {s} from {__name__}')
@@ -46,5 +42,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(f'dir in {__name__}: {dir()}')
     sys.exit(main())
